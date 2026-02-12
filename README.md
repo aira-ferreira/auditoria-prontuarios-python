@@ -25,7 +25,7 @@ Este projeto automatiza a auditoria e reduz drasticamente o tempo de verificaç�
 Arquitetura do Pipeline
 
 Base bruta (Excel)
-            ↓
+             ↓
 Power Query (Tratamento estrutural e padronização)
             ↓
       Base tratada
