@@ -168,7 +168,6 @@ Próxima Etapa
 Implementação de dashboard analítico para:
 
 Identificar padrões recorrentes de erro
-
 Monitorar evolução da qualidade do preenchimento ao longo do tempo
 
 Observação
