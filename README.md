@@ -1,56 +1,176 @@
-Auditoria de Prontuários: Tratamento e Automação
+Auditoria Automatizada de Prontuários Clínicos
 
-Este projeto apresenta um fluxo completo de tratamento de dados e auditoria automatizada para registros de atendimentos, combinando a agilidade do Power Query para ETL e a robustez do Python para validações complexas.
+Este projeto implementa um pipeline completa de tratamento, validação e auditoria automatizada de registros clínicos, combinando Power Query (ETL estrutural) e Python (motor de validação de regras de negócio).
 
-Etapa 1: Tratamento e Validação (Power Query)
-Antes da automação, os dados brutos passam por um processo de higienização no Power Query. O foco aqui é a integridade estrutural da base.
+O objetivo é garantir integridade, conformidade e prevenção de inconsistências que impactam faturamento e qualidade assistencial.
 
-As etapas documentadas no arquivo base_auditoria_power_query incluem:
+Problema de Negócio
 
-Padronização de Tipos: Ajuste de datas, textos e campos numéricos.
+Empresas de saúde mental frequentemente enfrentam:
 
-Normalização Textual: Tratamento de cases e remoção de espaços extras para evitar duplicidade por erro de digitação.
+Inconsistências no preenchimento de prontuários
 
-Qualidade de Dados: Identificação de campos obrigatórios vazios e remoção de registros inconsistentes.
+Registros duplicados
+
+Falhas na classificação de presença
+
+Evoluções padronizadas indevidamente
+
+Erros que impactam faturamento e a qualidade.
+
+O processo manual é lento, sujeito a erro humano e difícil de escalar.
+
+Este projeto automatiza a auditoria e reduz drasticamente o tempo de verificação.
+
+Arquitetura do Pipeline
+
+Base bruta (Excel)
+            ↓
+Power Query (Tratamento estrutural e padronização)
+            ↓
+      Base tratada
+            
+            ↓
+Base auditada com flags de erro
+            ↓
+Dashboard analítico (próxima etapa)
 
 
-Nota: Para visualizar o passo a passo detalhado da transformação, abra o editor do Power Query no arquivo Excel disponibilizado.
+Python (tratamento e análise automatizados)
+              ↓
+Base auditada com flag de erros
 
+Etapa - Tratamento e Validação Estrutural (Power Query)
+
+Antes da aplicação das regras de auditoria, os dados passam por um processo de higienização estrutural no Power Query.
+
+O arquivo base_auditoria_power_query.xlsx, disponível neste repositório, contém todas as etapas documentadas e pode ser aberto para visualização completa do processo.
+
+Transformações realizadas:
+- Padronização de Tipos
+
+Conversão correta de datas
+
+Ajuste de campos numéricos
+
+Tratamento de textos inconsistentes
+
+- Normalização Textual
+
+Padronização de maiúsculas/minúsculas
+
+Remoção de espaços extras
+
+Correção de inconsistências que poderiam gerar falsos duplicados
+
+- Qualidade de Dados
+
+Identificação de campos obrigatórios vazios
+
+Remoção de registros estruturalmente inválidos
+
+Verificação de CPFs com formatação incorreta
+
+
+Etapa em Python
+
+A segunda etapa transforma regras de negócio em validações automatizadas de alta performance utilizando Python + Pandas.
+
+O script processa grandes volumes de dados em segundos e gera diagnóstico detalhado por registro.
 
 Regras de Auditoria Aplicadas
 
-A inteligência do projeto reside na aplicação de 13 regras críticas para garantir a conformidade dos prontuários:
+O projeto implementa 13 regras críticas organizadas por categoria:
 
-Categoria	Regras de Validação
-Consistência Logística	
-• Sucesso no contato "Sim" com presença "Faltou"
+Consistência Logística
 
-• Sucesso no contato "Não" com presença "Compareceu"
+Sucesso no contato "Sim" com presença "Faltou"
 
-• Atendimento lançado retroativamente (Data Criação > Data Atendimento)
+Sucesso no contato "Não" com presença "Compareceu"
 
-Qualidade da Escrita	
-• Evoluções com menos de 50 caracteres
+Atendimento lançado retroativamente (Data Criação > Data Atendimento)
 
-• Evoluções idênticas para pacientes diferentes
+Status inativo sem encaminhamento adequado
 
-• Evoluções diferentes para o mesmo paciente no mesmo dia
+Evolução com menos de 50 caracteres
 
-Integridade de Cadastro	
-• CPF igual associado a nomes diferentes
+Evolução idêntica para pacientes diferentes
 
-Automação da Auditoria com Python
+Evolução idêntica para o mesmo paciente em dias diferentes
 
-Nesta etapa, o Python é utilizado para transformar as regras de negócio em um motor de auditoria de alta performance, garantindo que grandes volumes de dados sejam verificados em segundos.
+Evolução diferente para o mesmo paciente no mesmo dia
 
-Diferenciais da Implementação
-Vetorização de Dados: Utilização da biblioteca pandas para aplicar regras de validação em blocos, garantindo maior velocidade em comparação a loops tradicionais.
+Integridade Cadastral
 
-Centralização da Lógica: Todas as 13 regras de auditoria são processadas em um único script, facilitando manutenções futuras.
+CPF igual associado a nomes diferentes
 
-Rastreabilidade: O script gera um diagnóstico detalhado por linha, permitindo que a equipe operacional identifique exatamente qual regra foi violada.
+Duplicidade por combinação CPF + Data + Evolução
 
-Nota: Para visualizar do resultado, abra a planilha disponibilizada atendimento_auditoria_auditado.
+Campos obrigatórios vazios
+
+Coerência de Classificação
 
 
-Próxima etapa será incluir o Dashboard para visualização dos resultados encontrados.
+⚙ Diferenciais Técnicos
+
+-Processamento vetorizado com Pandas (alta performance)
+
+- Uso de Regex para identificação semântica de padrões textuais
+
+- Normalização de texto antes das validações
+
+- Centralização das regras em único script
+
+- Auditoria detalhada por linha
+
+- Log no console com resumo dos erros encontrados
+
+- Exportação automática da base auditada
+
+
+
+Estrutura do Repositório
+auditoria_prontuarios_python
+│
+├── base_auditoria_power_query.xlsx
+├── atendimentos_auditoria.xlsx
+├── auditoria_script.py
+├── auditoria_resultado_detalhado.xlsx
+└── README.md
+
+Stack Utilizada
+
+Excel
+
+Power Query
+
+Python
+
+Pandas
+
+Regex
+
+Git / GitHub
+
+
+Resultados
+
+Redução significativa do tempo de auditoria manual
+
+Padronização das validações
+
+Rastreabilidade por regra violada
+
+Base pronta para construção de dashboard gerencial
+
+Próxima Etapa
+
+Implementação de dashboard analítico para:
+
+Identificar padrões recorrentes de erro
+
+Monitorar evolução da qualidade do preenchimento ao longo do tempo
+
+Observação
+
+Os arquivos base_auditoria_power_query e atendimento_auditoria_auditado disponibilizados no repositório permite visualizar todo o processo de transformação estrutural aplicado em Power Query e Python.
