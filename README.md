@@ -25,19 +25,17 @@ Este projeto automatiza a auditoria e reduz drasticamente o tempo de verificaç�
 Arquitetura do Pipeline
 
 Base bruta (Excel)
-             ↓
+   
 Power Query (Tratamento estrutural e padronização)
-            ↓
-      Base tratada
             
-            ↓
+Base tratada
+            
 Base auditada com flags de erro
-            ↓
+            
 Dashboard analítico (próxima etapa)
 
-
 Python (tratamento e análise automatizados)
-              ↓
+              
 Base auditada com flag de erros
 
 Etapa - Tratamento e Validação Estrutural (Power Query)
