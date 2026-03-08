@@ -104,7 +104,8 @@ Planilha final com os dados auditados:
 
 Dashboard utilizado na análise: 
 
-Dashboard - portifólio.png
+![Uploading Dashboard - portifólio.png…]()
+
 
 ---
 
