@@ -102,9 +102,9 @@ Planilha final com os dados auditados:
 
 [Base final auditada](atendimento_auditoria_auditado.xlsx)
 
-Dashboard utilizado na análise:
+Dashboard utilizado na análise: 
 
-![Dashboard Auditoria](Dashboard - portifólio.png)
+Dashboard - portifólio.png
 
 ---
 
